@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: Todo API
+  version: '1.0'
+  description: Todoで利用するためのAPI
+  contact:
+    name: contact
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /{id}:
+    get:
+      tags:
+        - Todo
+      summary: Get Todo by ID.
+      description: Returns a single Todo model
+      parameters:
+        - name: id
+          in: path
+          description: todo id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single Todo model
+          content:
+            application/json:
+              schema: 
+                type: object
+                example:
+                  id: 1
+                  content: "ドキュメント作成"
+                  created_at: "2022-10-06 07:25:42"
+                  updated_at: "2022-10-06 07:25:42"
+    delete:
+      tags:
+        - Todo
+      summary: Delete Todo
+      responses:
+        200:
+          description: OK
+      description: Delete Todo.
+      parameters:
+        - name: id
+          in: path
+          description: todo id
+          required: true
+          schema:
+            type: integer
+  /:
+    post:
+      tags:
+        - Todo
+      summary: Create a new Todo
+      description: Create a new Todo
+      parameters: []
+      requestBody:
+        description: Todo to create
+        content:
+          application/json:
+            example:
+              content: "ドキュメント作成"
+      responses:
+        '201':
+          description: CREATED
