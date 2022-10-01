@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from App.database import init_db, db
 from App.models import Task
 
@@ -10,17 +10,17 @@ def create_app():
     init_db(app)
 
     @app.route('/show')
-    def show_tasks():
+    def show_task():
         all_peter = Task.query.filter_by(content='peter').all()
         how_many_peter = len(all_peter)
         return '今Peterは{}人います'.format(how_many_peter)
 
-    @app.route('/add')
-    def add_task():
-        peter = Task(content='peter')
-        db.session.add(peter)
+    @app.route('/', methods=['POST'])
+    def create():
+        task = Task(content=request.form['content'])
+        db.session.add(task)
         db.session.commit()
-        return 'Peterを増やしました。'
+        return jsonify(), 201
 
     @app.route('/delete')
     def delete_task():
