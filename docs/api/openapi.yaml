@@ -12,7 +12,7 @@ paths:
     get:
       tags:
         - Task
-      summary: Get Task by ID.
+      summary: Get task by ID.
       description: Returns a single Task model
       parameters:
         - name: id
@@ -34,11 +34,11 @@ paths:
     delete:
       tags:
         - Task
-      summary: Delete Task
+      summary: Delete task
       responses:
         200:
           description: OK
-      description: Delete Task.
+      description: Delete task.
       parameters:
         - name: id
           in: path
@@ -50,15 +50,25 @@ paths:
     post:
       tags:
         - Task
-      summary: Create a new Task
-      description: Create a new Task
+      summary: Create a new task
+      description: Create a new task
       parameters: []
       requestBody:
-        description: Task to create
+        description: task to create
         content:
           application/json:
             example:
               content: "ドキュメント作成"
+      responses:
+        '201':
+          description: CREATED
+  /task/file:
+    post:
+      tags:
+        - Task
+      summary: Write count of task in txt
+      description: Write count of task in txt
+      parameters: []
       responses:
         '201':
           description: CREATED

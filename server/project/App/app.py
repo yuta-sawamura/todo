@@ -38,6 +38,14 @@ def create_app():
         else:
             return abort(404)
 
+    @app.route(PREFIX + '/task/file', methods=['POST'])
+    def write():
+        count = Task.query.count()
+        f = open('task.txt', 'w', encoding='UTF-8')
+        f.write('タスク数 ' + str(count))
+        f.close()
+        return jsonify(), 201
+
     return app
 
 
