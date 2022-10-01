@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, jsonify, abort, render_template
 from App.database import init_db, db
 from App.models import Task
 
@@ -49,14 +49,22 @@ def create_app():
     @app.route(PREFIX + '/task/file')
     def read():
         try:
+            data = ''
             f = open('task.txt', 'r', encoding='UTF-8')
-            data = f.read()
-            f.close()
+            line = f.readline()
+            while line:
+                data += line
+                line = f.readline()
+            f.close
         except Exception:
             # 例外を握りつぶす
             return jsonify()
         else:
             return jsonify({'content': data}), 200
+
+    @app.route('/for')
+    def get_for():
+        return render_template('index.html')
 
     return app
 
