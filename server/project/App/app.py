@@ -48,10 +48,15 @@ def create_app():
 
     @app.route(PREFIX + '/task/file')
     def read():
-        f = open('task.txt', 'r', encoding='UTF-8')
-        data = f.read()
-        f.close()
-        return jsonify({'content': data}), 200
+        try:
+            f = open('task.txt', 'r', encoding='UTF-8')
+            data = f.read()
+            f.close()
+        except Exception:
+            # 例外を握りつぶす
+            return jsonify()
+        else:
+            return jsonify({'content': data}), 200
 
     return app
 
