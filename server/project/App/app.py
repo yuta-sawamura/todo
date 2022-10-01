@@ -26,15 +26,15 @@ def create_app():
         db.session.commit()
         return jsonify(), 201
 
-    @app.route('/delete')
-    def delete_task():
-        peter = Task.query.filter_by(content='peter').first()
-        if peter is not None:
-            db.session.delete(peter)
+    @app.route('/task/<id>', methods=['DELETE'])
+    def delete(id):
+        task = Task.query.filter_by(id=id).first()
+        if task is not None:
+            db.session.delete(task)
             db.session.commit()
-            return 'Peterを減らしました。'
+            return jsonify(), 200
         else:
-            return 'Peterはひとりもいません'
+            return abort(404)
 
     return app
 
