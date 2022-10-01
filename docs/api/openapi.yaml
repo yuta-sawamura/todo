@@ -8,7 +8,7 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /{id}:
+  /task/{id}:
     get:
       tags:
         - Task
@@ -31,8 +31,6 @@ paths:
                 example:
                   id: 1
                   content: "ドキュメント作成"
-                  created_at: "2022-10-06 07:25:42"
-                  updated_at: "2022-10-06 07:25:42"
     delete:
       tags:
         - Task
@@ -48,7 +46,7 @@ paths:
           required: true
           schema:
             type: integer
-  /:
+  /task:
     post:
       tags:
         - Task
