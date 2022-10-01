@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from App.database import init_db, db
 from App.models import Task
 
@@ -9,13 +9,17 @@ def create_app():
 
     init_db(app)
 
-    @app.route('/show')
-    def show_task():
-        all_peter = Task.query.filter_by(content='peter').all()
-        how_many_peter = len(all_peter)
-        return '今Peterは{}人います'.format(how_many_peter)
+    @app.route('/task/<id>')
+    def show(id):
+        task = Task.query.filter_by(id=id).first()
+        if not task:
+            abort(404)
+        return jsonify({
+            'id': task.id,
+            'content': task.content
+        }), 200
 
-    @app.route('/', methods=['POST'])
+    @app.route('/task', methods=['POST'])
     def create():
         task = Task(content=request.form['content'])
         db.session.add(task)
