@@ -1,6 +1,6 @@
 from flask import Flask
 from App.database import init_db, db
-from App.models import User
+from App.models import Task
 
 
 def create_app():
@@ -9,26 +9,22 @@ def create_app():
 
     init_db(app)
 
-    @app.route('/')
-    def index():
-        return 'Peterが増えるプログラムです'
-
     @app.route('/show')
-    def show_users():
-        all_peter = User.query.filter_by(name='peter').all()
+    def show_tasks():
+        all_peter = Task.query.filter_by(content='peter').all()
         how_many_peter = len(all_peter)
         return '今Peterは{}人います'.format(how_many_peter)
 
     @app.route('/add')
-    def add_user():
-        peter = User(name='peter')
+    def add_task():
+        peter = Task(content='peter')
         db.session.add(peter)
         db.session.commit()
         return 'Peterを増やしました。'
 
     @app.route('/delete')
-    def delete_user():
-        peter = User.query.filter_by(name='peter').first()
+    def delete_task():
+        peter = Task.query.filter_by(content='peter').first()
         if peter is not None:
             db.session.delete(peter)
             db.session.commit()

@@ -1,6 +1,6 @@
-from .models import User
+from .models import Task
 
 
 __all__ = [
-    User,
+    Task,
 ]

@@ -11,22 +11,22 @@ paths:
   /{id}:
     get:
       tags:
-        - Todo
-      summary: Get Todo by ID.
-      description: Returns a single Todo model
+        - Task
+      summary: Get Task by ID.
+      description: Returns a single Task model
       parameters:
         - name: id
           in: path
-          description: todo id
+          description: task id
           required: true
           schema:
             type: integer
       responses:
         '200':
-          description: A single Todo model
+          description: A single Task model
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 example:
                   id: 1
@@ -35,28 +35,28 @@ paths:
                   updated_at: "2022-10-06 07:25:42"
     delete:
       tags:
-        - Todo
-      summary: Delete Todo
+        - Task
+      summary: Delete Task
       responses:
         200:
           description: OK
-      description: Delete Todo.
+      description: Delete Task.
       parameters:
         - name: id
           in: path
-          description: todo id
+          description: task id
           required: true
           schema:
             type: integer
   /:
     post:
       tags:
-        - Todo
-      summary: Create a new Todo
-      description: Create a new Todo
+        - Task
+      summary: Create a new Task
+      description: Create a new Task
       parameters: []
       requestBody:
-        description: Todo to create
+        description: Task to create
         content:
           application/json:
             example:
