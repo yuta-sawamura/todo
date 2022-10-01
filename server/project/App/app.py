@@ -46,6 +46,13 @@ def create_app():
         f.close()
         return jsonify(), 201
 
+    @app.route(PREFIX + '/task/file')
+    def read():
+        f = open('task.txt', 'r', encoding='UTF-8')
+        data = f.read()
+        f.close()
+        return jsonify({'content': data}), 200
+
     return app
 
 
